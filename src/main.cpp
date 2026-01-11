@@ -1,6 +1,6 @@
 /*
-Library for work with DNS messages.
-Copyright (C) 2025  Vladyslav Tupikin
+Test application for different sort algorhythms.
+Copyright (C) 2026  Vladyslav Tupikin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,34 +21,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <random>
 #include <limits>
 
-#include "functions.hpp"
+#include "dk_sort.hpp"
 #define ARR_SIZE 20
 
+
+int main(int argc, char **argv) {
+
+    std::cout << "Hello DK Sort APP" << std::endl;
+
+    return 0;
+}
+
 #if 0
-    #define PRINT_ARRAY_MACRO(array,size) ;
-#else
-    #define PRINT_ARRAY_MACRO(array,size) \
-    do {                            \
-        print_array(array, size);   \
-    }  while(0)
-#endif
-
-#define PRINT_EXEC_TIME(MSEC)                                                       \
-do {                                                                                \
-    if(MSEC > 1000) {                                                               \
-        std::cout << "Execution time: " << MSEC/1000 << " seconds" << std::endl << std::endl;    \
-    }                                                                               \
-    else {                                                                          \
-        std::cout << "Execution time: " << MSEC << " milliseconds" << std::endl << std::endl;    \
-    }                                                                               \
-}while(0)
-
-#define GOOGLE 1
-#define ASMASTERY 1
-#define COMMON_BUBBLE 1
-#define DK_SORT 1
-
-
 int main(int argc, char **argv) {
 
     auto pos1 = 2;
@@ -179,3 +163,4 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+#endif

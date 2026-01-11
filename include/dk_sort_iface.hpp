@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#ifndef DK_SORT_IFACE
+#define DK_SORT_IFACE
 
 #define ARRAY_SIZE 20
 namespace dk_sort
@@ -34,3 +36,4 @@ namespace dk_sort
             int *array = nullptr;
     };
 } // namespace dk_sort
+#endif

@@ -33,7 +33,7 @@ void dk_sort::DkSortBubbleQuickerAsm::DkSortArray(int* array, int size) {
     // syntax, added macro condition per related OS
 #if defined(_WIN32)
     __asm {
-        mov esi,arr
+        mov esi,array
         mov edi,var
         push ebp
         mov ebp,esi

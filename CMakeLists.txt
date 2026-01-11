@@ -15,10 +15,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.28.3)
-project(LIBDKDNS
+project(DK_SORT_APP
         LANGUAGES C CXX
         VERSION 0.1
-        DESCRIPTION "Library for work with DNS messages"
-        HOMEPAGE_URL "https://github.com/VladyslavTupikin/libdkdns")
+        DESCRIPTION "Test application for different sort algorhythms."
+        HOMEPAGE_URL "https://github.com/VladyslavTupikin/dk_sort_app")
 
-subdir(src)
+add_subdirectory(src)

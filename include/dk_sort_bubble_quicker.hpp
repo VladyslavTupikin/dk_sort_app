@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+
+#ifndef DK_SORT_BUBBLE_QUICKER
+#define DK_SORT_BUBBLE_QUICKER
+
 #include "dk_sort_iface.hpp"
 
 namespace dk_sort
@@ -24,3 +28,5 @@ namespace dk_sort
          void DkSortArray(int*,int) override;
     };
 }
+
+#endif
