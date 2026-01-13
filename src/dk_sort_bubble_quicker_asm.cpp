@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 void dk_sort::DkSortBubbleQuickerAsm::DkSortArray(int* array, int size) {
+
     if(!array || size <= 0) {
         return;
     }

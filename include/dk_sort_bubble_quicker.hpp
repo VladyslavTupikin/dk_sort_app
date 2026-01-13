@@ -25,7 +25,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 namespace dk_sort
 {
     class DkSortBubbleQuicker:DkSortIface {
-         void DkSortArray(int*,int) override;
+        public:
+            void DkSortArray(int*,int) override;
     };
 }
 

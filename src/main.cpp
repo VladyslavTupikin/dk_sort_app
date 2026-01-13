@@ -22,145 +22,52 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <limits>
 
 #include "dk_sort.hpp"
-#define ARR_SIZE 20
+#define ARRAY_SIZE 20000
 
 
 int main(int argc, char **argv) {
 
-    std::cout << "Hello DK Sort APP" << std::endl;
-
-    return 0;
-}
-
-#if 0
-int main(int argc, char **argv) {
-
-    auto pos1 = 2;
-    auto pos2 = 5;
-    auto range_min = 1;
-    auto range_max = 99;
-    int ret = 0;
-    std::time_t currentTime = std::time(nullptr);
-
-
-    //std::cout << "Array Index: " << 5 << "  Array value: " << get_value(arr,6,5) << std::endl;
-    //const int array_size = ARR_SIZE;
-    auto bubble = new int[ARR_SIZE];
-    auto bubble_quick = new int[ARR_SIZE];
-    auto bubble_asmastery = new int[ARR_SIZE];
-    auto bubble_google_ai = new int[ARR_SIZE];
-    auto bubble_quick_asm = new int[ARR_SIZE];
-    auto bubble_asmastery_asm = new int[ARR_SIZE];
-    //int bubble_quick_asm[ARR_SIZE] = {0};
+    /*
+        For testing all sort methods on the same data, need to generate
+        array main_array here and provide it to the DkSortPerfomance constructor
+        per sort method.
+    */
     std::random_device r;
     std::seed_seq seed_seq_gen{r()};
     std::mt19937 gen(seed_seq_gen);
-    std::uniform_int_distribution<int> dist(1, 99);
 
+    const int range_min = 1;
+    const int range_max = 99;
 
-    std::cout << std::endl << std::endl;
+    std::uniform_int_distribution<int> dist(range_min, range_max);
+
+    auto main_array = new int[ARRAY_SIZE];
 
     auto start = std::chrono::high_resolution_clock::now();
-    for(auto it = 0; it < ARR_SIZE; it++) {
-        bubble[it] = dist(gen);
-        bubble_quick[it] = bubble[it];
-        bubble_asmastery[it] = bubble[it];
-        bubble_google_ai[it] = bubble[it];
-        bubble_quick_asm[it] = bubble[it];
-        bubble_asmastery_asm[it] = bubble[it];
-    }
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> duration = end - start;
-
-    std::cout << "Current time: " << std::ctime(&currentTime);
-    std::cout << "Randomly filled up array with " << ARR_SIZE << " elements, range from " << range_min << " to "<< range_max << std::endl;
-    PRINT_EXEC_TIME(duration.count());
-
-#if COMMON_BUBBLE
-    start = std::chrono::high_resolution_clock::now();
-    std::cout << "Bubble sort array with " << ARR_SIZE << " elements" << std::endl;
-    PRINT_ARRAY_MACRO(bubble, ARR_SIZE);
-    ret = bubble_sort(bubble,ARR_SIZE);
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    if (ret != -1) {
-        PRINT_ARRAY_MACRO(bubble, ARR_SIZE);
-        PRINT_EXEC_TIME(duration.count());
-    }
-#endif
-
-#if DK_SORT
-    start = std::chrono::high_resolution_clock::now();
-    std::cout << "Bubble sort array via __asm with " << ARR_SIZE << " elements" << std::endl;
-    PRINT_ARRAY_MACRO(bubble_quick_asm, ARR_SIZE);
-    bubble_sort_quicker_asm(bubble_quick_asm, ARR_SIZE);
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    PRINT_ARRAY_MACRO(bubble_quick_asm, ARR_SIZE);
-    PRINT_EXEC_TIME(duration.count());
-
-    start = std::chrono::high_resolution_clock::now();
-    std::cout << "Quick Bubble sort array with " << ARR_SIZE << " elements" << std::endl;
-    PRINT_ARRAY_MACRO(bubble_quick, ARR_SIZE);
-    ret = bubble_sort_quicker(bubble_quick,ARR_SIZE);
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    if (ret != -1) {
-        PRINT_ARRAY_MACRO(bubble_quick, ARR_SIZE);
-        PRINT_EXEC_TIME(duration.count());
-    }
-#endif
-
-#if ASMASTERY
-    start = std::chrono::high_resolution_clock::now();
-    std::cout << "ASMastery Quick Bubble sort array with " << ARR_SIZE << " elements" << std::endl;
-    PRINT_ARRAY_MACRO(bubble_asmastery, ARR_SIZE);
-    ret = bubble_sort_optimized(bubble_asmastery,ARR_SIZE);
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    if (ret != -1) {
-        PRINT_ARRAY_MACRO(bubble_asmastery, ARR_SIZE);
-        PRINT_EXEC_TIME(duration.count());
+    for(auto it = 0; it < ARRAY_SIZE; it++) {
+        main_array[it] = dist(gen);
     }
 
-    start = std::chrono::high_resolution_clock::now();
-    std::cout << "ASMastery Quick Bubble sort array via __asm with " << ARR_SIZE << " elements" << std::endl;
-    PRINT_ARRAY_MACRO(bubble_asmastery_asm, ARR_SIZE);
-    bubble_sort_optimized_asm(bubble_asmastery_asm,ARR_SIZE);
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
+    dk_sort::DkSortBubbleCommon bubble;
+    dk_perfomance::DkSortPerfomance bubble_perfom(main_array, ARRAY_SIZE);
 
-    if (ret != -1) {
-        PRINT_ARRAY_MACRO(bubble_asmastery_asm, ARR_SIZE);
-        PRINT_EXEC_TIME(duration.count());
-    }
-
-#endif
-
-#if GOOGLE
-    start = std::chrono::high_resolution_clock::now();
-    std::cout << "Google AI Quick sort array with " << ARR_SIZE << " elements" << std::endl;
-    PRINT_ARRAY_MACRO(bubble_google_ai, ARR_SIZE);
-    qsort(bubble_google_ai, ARR_SIZE, sizeof(int), &cb_compare_integers_qsort);
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    PRINT_ARRAY_MACRO(bubble_google_ai, ARR_SIZE);
-    PRINT_EXEC_TIME(duration.count());
-#endif
+    std::cout << "Common bubble sort";
+    bubble_perfom.DkPerfomanceTest(bubble);
 
 
-    delete[] bubble;
-    delete[] bubble_quick;
-    delete[] bubble_asmastery;
-    delete[] bubble_google_ai;
-    delete[] bubble_quick_asm;
-    delete[] bubble_asmastery_asm;
+    dk_sort::DkSortBubbleQuicker bubble_quicker;
+    dk_perfomance::DkSortPerfomance bubble_quicker_perfom(main_array, ARRAY_SIZE);
+
+    std::cout << "Bubble sort quicker";
+    bubble_quicker_perfom.DkPerfomanceTest(bubble_quicker);
+
+    dk_sort::DkSortBubbleQuickerAsm bubble_quicker_asm;
+    dk_perfomance::DkSortPerfomance bubble_quicker_asm_perfom(main_array, ARRAY_SIZE);
+
+    std::cout << "Bubble sort quicker ASM implementation";
+    bubble_quicker_asm_perfom.DkPerfomanceTest(bubble_quicker_asm);
+
+    delete[] main_array;
 
     return 0;
 }
-#endif

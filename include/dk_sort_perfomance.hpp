@@ -16,26 +16,39 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#ifndef DK_SORT_PERFOMANCE
+#define DK_SORT_PERFOMANCE
+
 #include <iostream>
+#include "dk_sort_bubble_common.hpp"
 #include "dk_sort_bubble_quicker.hpp"
 
+namespace dk_perfomance
+{
+    class DkSortPerfomance {
 
-void dk_sort::DkSortBubbleQuicker::DkSortArray(int* array, int size) {
+        public:
+        //DkSortPerfomance();
+            DkSortPerfomance(int *arr,int size);
+            DkSortPerfomance(int size);
+            virtual ~DkSortPerfomance();
 
-    if(!array || size <= 0) {
-        return;
-    }
+            double GetWastedTime(void);
+            void DKSortPrintArray(void);
 
-    for (auto i = 0; i < size; i++) {
-        // Just skip left part of the already sorted elements
-        // speed acceleration on 50% comparing to common bubble sort
-        // visible starting from 1K elements
-        for(auto j = i; j < size ; j++) {
-            if(array[j] < array[i]) {
-                auto tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
-            }
-        }
-    }
+            template <typename T>
+            void DkPerfomanceTest( T& obj);
+
+        private:
+            int* array = nullptr;
+            int array_size = 0;
+            const int range_min = 1;
+            const int range_max = 99;
+
+            std::chrono::duration<double, std::milli> duration;
+    };
 }
+
+#include "dk_sort_perfomance.tpp"
+
+#endif

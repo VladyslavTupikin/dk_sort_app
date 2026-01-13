@@ -19,21 +19,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ifndef DK_SORT_IFACE
 #define DK_SORT_IFACE
 
-#define ARRAY_SIZE 20
 namespace dk_sort
 {
 
     class DkSortIface {
         public:
-            void DkSortPerfomance();
-            void DKSortPrintArray();
-
-            void virtual DkSortArray(int*,int);
+            void virtual DkSortArray(int*,int) {}
             virtual ~DkSortIface() = default;
-        private:
-            const int range_min = 1;
-            const int range_max = 99;
-            int *array = nullptr;
     };
+
 } // namespace dk_sort
 #endif
