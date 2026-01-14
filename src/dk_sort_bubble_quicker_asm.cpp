@@ -88,7 +88,7 @@ void dk_sort::DkSortBubbleQuickerAsm::DkSortArray(int* array, int size) {
         "jl SortStart\n\t"
         "pop ebp\n\t"
         "nop\n\t"
-        "nop\n\t"::"m"(arr),"m"(var),"m"(temp):"eax","ebx","ecx","edx","esi","edi","memory"
+        "nop\n\t"::"m"(array),"m"(var):"eax","ebx","ecx","edx","esi","edi","memory"
     );
 #endif
 

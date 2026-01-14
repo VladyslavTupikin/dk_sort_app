@@ -23,16 +23,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "dk_sort_perfomance.hpp"
 
-#define PRINT_EXEC_TIME(MSEC)                                                       \
-do {                                                                                \
-    if(MSEC > 1000) {                                                               \
-        std::cout << "Execution time: " << MSEC/1000 << " seconds" << std::endl << std::endl;    \
-    }                                                                               \
-    else {                                                                          \
-        std::cout << "Execution time: " << MSEC << " milliseconds" << std::endl << std::endl;    \
-    }                                                                               \
-}while(0)
-
 dk_perfomance::DkSortPerfomance::DkSortPerfomance(int *arr, int size) {
 
     this->array_size = size;

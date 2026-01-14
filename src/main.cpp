@@ -21,8 +21,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <random>
 #include <limits>
 
+#if defined(__linux__)
+    #include <cstdlib>
+#endif
+
 #include "dk_sort.hpp"
-#define ARRAY_SIZE 20000
+#define ARRAY_SIZE 20
 
 
 int main(int argc, char **argv) {

@@ -13,19 +13,19 @@ Application written on C++ 20 with CMake build system.
     ```
     cmake -B ./build -A Win32
     ```
-2. Build dkdns library:
+2. Build dksort_app executable:
     ```
     cmake --build build --config Release
     ```
 
 ### Linux with GCC (g++) and 32bit multilib support
-1. Prepare build environment.....
+1. Prepare build environment. CPP_FLAGS already contains -m32 flag for building 32bit app.
     ```
-    TODO
+    cmake -B build --toolchain toolchains/i386.cmake
     ```
-2. Build dkdns library:
+2. Build dksort_app executable:
     ```
-    TODO
+    cmake --build build --config Release
     ```
 
 ## Installation

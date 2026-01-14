@@ -26,7 +26,6 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
         return;
     }
 
-    int n = size;
     int temp = 0;
 
     // Algorhytms same as DkSortBubbleOptimized::DkSortArray
@@ -72,7 +71,7 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
 #elif defined(__linux__)
     __asm__ __volatile__ (
         "mov esi,%0\n\t"
-        "mov edi,(%2)\n\t"
+        "mov edi,(%1)\n\t"
         "dec edi\n\t"
         "xor ebx,ebx\n\t"
         "jmp for\n\t"
@@ -99,7 +98,7 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
         "cmp ebx,edi\n\t"
         "jl Input\n\t"
     "Return:\n\t"
-        "mov eax,esi\n\t"::"m"(arr),"m"(n),"m"(temp):"eax","ebx","ecx","edx","esi","edi","memory"
+        "mov eax,esi\n\t"::"m"(array),"m"(size),"m"(temp):"eax","ebx","ecx","edx","esi","edi","memory"
     );
 #endif
 }

@@ -48,8 +48,15 @@ set_target_properties(${DK_SORT} PROPERTIES
     OUTPUT_NAME "${DK_SORT}"
 )
 
-#set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DENABLE_PRINT_ARRAY)
-set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2)
+if(WIN32)
+    #set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DENABLE_PRINT_ARRAY)
+    set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2)
+elseif(UNIX)
+    #set(CPP_FLAGS ${CPP_FLAGS} "-DENABLE_PRINT_ARRAY" "-masm=intel")
+    set(CPP_FLAGS ${CPP_FLAGS} "-std=c++20" "-O3" "-masm=intel")
+else()
+    # Actions for other platforms
+    message(FATAL_ERROR "Unsupported platform")
+endif()
 
-#target_compile_options(${DK_SORT} PRIVATE /EHsc /std:c++20 /link /MACHINE:X86 /OUT:dksort_app.exe )
-target_compile_options(${DK_SORT} PRIVATE ${CPP_FLAGS} )
+target_compile_options(${DK_SORT} PRIVATE ${CPP_FLAGS})
