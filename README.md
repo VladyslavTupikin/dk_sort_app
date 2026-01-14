@@ -15,7 +15,7 @@ Application written on C++ 20 with CMake build system.
     ```
 2. Build dkdns library:
     ```
-    cmake --build build
+    cmake --build build --config Release
     ```
 
 ### Linux with GCC (g++) and 32bit multilib support

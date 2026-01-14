@@ -1,5 +1,5 @@
 # Test application for different sort algorhythms.
-# Copyright (C) 2025  Vladyslav Tupikin
+# Copyright (C) 2026  Vladyslav Tupikin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@ set(DK_SORT_SRC
     dk_sort_bubble_quicker_asm.cpp
     dk_sort_bubble_quicker.cpp
     dk_sort_perfomance.cpp
+    dk_sort_bubble_optimized.cpp
+    dk_sort_bubble_optimized_asm.cpp
     )
 
 set(DK_SORT_INCLUDE
@@ -34,6 +36,8 @@ set(DK_SORT_INCLUDE
     ${CMAKE_SOURCE_DIR}/include/dk_sort_bubble_quicker.hpp
     ${CMAKE_SOURCE_DIR}/include/dk_sort_iface.hpp
     ${CMAKE_SOURCE_DIR}/dk_sort_perfomance.hpp
+    ${CMAKE_SOURCE_DIR}/dk_sort_bubble_optimized.hpp
+    ${CMAKE_SOURCE_DIR}/dk_sort_bubble_optimized_asm.hpp
     )
 
 add_executable(${DK_SORT} ${DK_SORT_SRC})
@@ -45,7 +49,7 @@ set_target_properties(${DK_SORT} PROPERTIES
 )
 
 #set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DENABLE_PRINT_ARRAY)
-set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20)
+set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2)
 
 #target_compile_options(${DK_SORT} PRIVATE /EHsc /std:c++20 /link /MACHINE:X86 /OUT:dksort_app.exe )
 target_compile_options(${DK_SORT} PRIVATE ${CPP_FLAGS} )

@@ -1,5 +1,5 @@
 # Test application for different sort algorhythms.
-# Copyright (C) 2025  Vladyslav Tupikin
+# Copyright (C) 2026  Vladyslav Tupikin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 cmake_minimum_required(VERSION 3.28.3)
 project(DK_SORT_APP
-        LANGUAGES C CXX
+        LANGUAGES CXX
         VERSION 0.1
         DESCRIPTION "Test application for different sort algorhythms."
         HOMEPAGE_URL "https://github.com/VladyslavTupikin/dk_sort_app")

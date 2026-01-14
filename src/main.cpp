@@ -51,14 +51,14 @@ int main(int argc, char **argv) {
     dk_sort::DkSortBubbleCommon bubble;
     dk_perfomance::DkSortPerfomance bubble_perfom(main_array, ARRAY_SIZE);
 
-    std::cout << "Common bubble sort";
+    std::cout << "Common bubble sort C++ implementation";
     bubble_perfom.DkPerfomanceTest(bubble);
 
 
     dk_sort::DkSortBubbleQuicker bubble_quicker;
     dk_perfomance::DkSortPerfomance bubble_quicker_perfom(main_array, ARRAY_SIZE);
 
-    std::cout << "Bubble sort quicker";
+    std::cout << "Bubble sort quicker C++ implementation";
     bubble_quicker_perfom.DkPerfomanceTest(bubble_quicker);
 
     dk_sort::DkSortBubbleQuickerAsm bubble_quicker_asm;
@@ -66,6 +66,20 @@ int main(int argc, char **argv) {
 
     std::cout << "Bubble sort quicker ASM implementation";
     bubble_quicker_asm_perfom.DkPerfomanceTest(bubble_quicker_asm);
+
+
+    dk_sort::DkSortBubbleOptimized bubble_optimized;
+    dk_perfomance::DkSortPerfomance bubble_optimized_perfom(main_array, ARRAY_SIZE);
+
+    std::cout << "Optimized Bubble sort C++ implementation";
+    bubble_optimized_perfom.DkPerfomanceTest(bubble_optimized);
+
+    dk_sort::DkSortBubbleOptimizedAsm bubble_optimized_asm;
+    dk_perfomance::DkSortPerfomance bubble_optimized_perfom_asm(main_array, ARRAY_SIZE);
+
+    std::cout << "Optimized Bubble sort ASM implementation";
+    bubble_optimized_perfom_asm.DkPerfomanceTest(bubble_optimized_asm);
+
 
     delete[] main_array;
 

@@ -16,14 +16,34 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef DK_SORT
-#define DK_SORT
-
-#include "dk_sort_bubble_common.hpp"
-#include "dk_sort_bubble_quicker_asm.hpp"
-#include "dk_sort_bubble_quicker.hpp"
-#include "dk_sort_perfomance.hpp"
+#include <iostream>
 #include "dk_sort_bubble_optimized.hpp"
-#include "dk_sort_bubble_optimized_asm.hpp"
 
-#endif
+
+void dk_sort::DkSortBubbleOptimized::DkSortArray(int* array, int size) {
+
+    if(!array || size <= 0) {
+        return;
+    }
+
+    bool swapped = false;
+    auto n = size;
+
+    int i = 0;
+    int j = 0;
+
+    for ( i = 0; i < n - 1; i++) {
+
+        swapped = false;
+        for ( j = 0; j < n - i - 1; j++) {
+            if (array[j] > array[ j + 1]) {
+                std::swap(array[j], array[j + 1]);
+                swapped = true;
+            }
+        }
+
+        if (swapped == false) {
+            break;
+        }
+    }
+}
