@@ -34,6 +34,7 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
     // since Windows and Linux inline assembly has different
     // syntax, added macro condition per related OS
 #if defined(_WIN32)
+    int n = size; // Win32 requires local variable :/
     __asm {
         push ebp
         mov esi,array

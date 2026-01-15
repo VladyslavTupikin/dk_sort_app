@@ -16,17 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "test_exec.hpp"
+#ifndef TEST_EXEC
+#define TEST_EXEC
 
-#if !defined(ARRAY_SIZE)
-    #error "Array size is not set: -D ARRAY_SIZE=val"
-#endif
+void test_executor(int array_size);
 
-
-
-int main(void) {
-
-    test_executor(ARRAY_SIZE);
-
-    return 0;
-}
+#endif // TEST_EXEC

@@ -16,9 +16,31 @@
 
 cmake_minimum_required(VERSION 3.22.1)
 project(DK_SORT_APP
-        LANGUAGES CXX
+        LANGUAGES C CXX
         VERSION 0.1
         DESCRIPTION "Test application for different sort algorhythms."
         HOMEPAGE_URL "https://github.com/VladyslavTupikin/dk_sort_app")
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(WIN32)
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+        message(FATAL_ERROR "For Windows project should be compiled via Microsoft VisualStudio Compiler (MSVC)")
+    endif()
+
+elseif(UNIX)
+    include(CheckIncludeFile)
+
+    CHECK_INCLUDE_FILE("sys/cdefs.h" FOUND_CDEFS "-m32")
+    if(NOT FOUND_CDEFS)
+        message(FATAL_ERROR "Can't find the 32bit version of sys/cdefs.h - did you install g++-multilib?")
+    endif()
+
+
+else()
+    message(FATAL_ERROR "Unknown Operating System. Windows or Linux suppoted")
+endif()
+
 
 add_subdirectory(src)

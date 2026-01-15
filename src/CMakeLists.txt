@@ -16,28 +16,16 @@
 
 
 set(DK_SORT dksort_app)
-#set(LIBDKDNS_PC dkdns.pc)
-#set(LIBDKDNS_PC_TMPLT dkdns.pc.in)
-#set(CMAKE_C_STANDARD 11)
 
 set(DK_SORT_SRC
     main.cpp
+    test_exec.cpp
     dk_sort_bubble_common.cpp
     dk_sort_bubble_quicker_asm.cpp
     dk_sort_bubble_quicker.cpp
     dk_sort_perfomance.cpp
     dk_sort_bubble_optimized.cpp
     dk_sort_bubble_optimized_asm.cpp
-    )
-
-set(DK_SORT_INCLUDE
-    ${CMAKE_SOURCE_DIR}/include/dk_sort_bubble_common.hpp
-    ${CMAKE_SOURCE_DIR}/include/dk_sort_bubble_quicker_asm.hpp
-    ${CMAKE_SOURCE_DIR}/include/dk_sort_bubble_quicker.hpp
-    ${CMAKE_SOURCE_DIR}/include/dk_sort_iface.hpp
-    ${CMAKE_SOURCE_DIR}/dk_sort_perfomance.hpp
-    ${CMAKE_SOURCE_DIR}/dk_sort_bubble_optimized.hpp
-    ${CMAKE_SOURCE_DIR}/dk_sort_bubble_optimized_asm.hpp
     )
 
 add_executable(${DK_SORT} ${DK_SORT_SRC})
@@ -48,14 +36,47 @@ set_target_properties(${DK_SORT} PROPERTIES
     OUTPUT_NAME "${DK_SORT}"
 )
 
+if( (NOT EXIST ${SET_ARRAY_SIZE}) OR ("${SET_ARRAY_SIZE}" LESS_EQUAL "0") )
+    message(FATAL_ERROR "Array size should be directly specified like -DSET_ARRAY_SIZE=20")
+endif()
+
 if(WIN32)
-    #set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DENABLE_PRINT_ARRAY)
-    set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2)
+
+    if(${ENABLE_PRINT_ARRAY})
+        set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2 /DENABLE_PRINT_ARRAY /DARRAY_SIZE=${SET_ARRAY_SIZE})
+    else()
+        set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2 /DARRAY_SIZE=${SET_ARRAY_SIZE})
+    endif()
+
 elseif(UNIX)
-    #set(CPP_FLAGS ${CPP_FLAGS} "-DENABLE_PRINT_ARRAY" "-masm=intel")
-    set(CPP_FLAGS ${CPP_FLAGS} "-std=c++20" "-O3" "-masm=intel")
+
+    set(CPP_FLAGS ${CPP_FLAGS} "-Wall" "-Werror" "-Wextra" "--pedantic") # Build with strict flags
+    set(CPP_FLAGS ${CPP_FLAGS} "-std=c++20" "-masm=intel" "-DARRAY_SIZE=${SET_ARRAY_SIZE}")
+    set(CPP_FLAGS ${CPP_FLAGS} "-D_FORTIFY_SOURCE=3") # Enable security check for memory vulnerabilities
+
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+
+        set(CPP_FLAGS ${CPP_FLAGS} "-O3") # Enable maximum optimization
+
+        add_custom_command(
+            TARGET ${DK_SORT} POST_BUILD
+            COMMAND ${CMAKE_STRIP}
+            ARGS $<TARGET_FILE:${DK_SORT}>
+            COMMENT "Stripping release binary: ${DK_SORT}"
+        )
+    elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+
+        set(CPP_FLAGS ${CPP_FLAGS} "-O0") # Disable optimization
+        set(CPP_FLAGS ${CPP_FLAGS} "-g") # Add debug inffo to the binary
+    else()
+        message(FATAL_ERROR "Unsupported build type.")
+    endif()
+
+    if(${ENABLE_PRINT_ARRAY})
+        set(CPP_FLAGS ${CPP_FLAGS} "-DENABLE_PRINT_ARRAY")
+    endif()
+
 else()
-    # Actions for other platforms
     message(FATAL_ERROR "Unsupported platform")
 endif()
 

@@ -44,7 +44,6 @@ dk_perfomance::DkSortPerfomance::DkSortPerfomance(int size) {
 
     this->array_size = size;
     this->array = new int[array_size];
-    std::time_t currentTime = std::time(nullptr);
 
     auto start = std::chrono::high_resolution_clock::now();
     for(auto it = 0; it < array_size; it++) {
@@ -76,33 +75,4 @@ void dk_perfomance::DkSortPerfomance::DKSortPrintArray(void) {
 }
 #else
 void dk_perfomance::DkSortPerfomance::DKSortPrintArray(void) { };
-#endif
-
-#if 0
-template <typename T>
-void dk_perfomance::DkSortPerfomance:: DkPerfomanceTest(T &obj) {
-
-    std::time_t currentTime = std::time(nullptr);
-    std::cout << std::endl << "Current time: " << std::ctime(&currentTime);
-
-    std::cout << "Randomly filled up array with " << ARRAY_SIZE << " elements, range from " << range_min << " to "<< range_max << std::endl;
-    DKSortPrintArray();
-    PRINT_EXEC_TIME(this->duration.count());
-
-
-    auto start = std::chrono::high_resolution_clock::now();
-    std::cout << "Sorting array with " << ARRAY_SIZE << " elements" << std::endl;
-
-    obj.DkSortArray(this->array, ARRAY_SIZE);
-
-    auto end = std::chrono::high_resolution_clock::now();
-    this->duration = end - start;
-
-    DKSortPrintArray();
-
-    PRINT_EXEC_TIME(this->duration.count());
-}
-
-template void dk_perfomance::DkSortPerfomance::DkPerfomanceTest<dk_sort::DkSortBubbleCommon>(dk_sort::DkSortBubbleCommon &obj);
-template void dk_perfomance::DkSortPerfomance::DkPerfomanceTest<dk_sort::>(dk_sort::DkSortBubbleCommon &obj);
 #endif
