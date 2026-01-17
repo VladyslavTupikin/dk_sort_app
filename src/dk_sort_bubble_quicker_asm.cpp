@@ -53,7 +53,6 @@ void dk_sort::DkSortBubbleQuickerAsm::DkSortArray(int* array, int size) {
         add ecx,1
         cmp ecx,edi
         jl Launch
-    For:
         add ebx,1
         add esi,4
         cmp ebx,edi

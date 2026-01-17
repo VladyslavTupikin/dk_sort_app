@@ -25,11 +25,17 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
-    if (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
-        message(FATAL_ERROR "For Windows project should be compiled via Microsoft VisualStudio Compiler (MSVC)")
+
+    message(STATUS "Building for WIN32 system")
+
+    if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+        message(FATAL_ERROR "For Windows, project should be compiled via Microsoft VisualStudio Compiler (MSVC)")
     endif()
 
 elseif(UNIX)
+
+    message(STATUS "Building for UNIX system")
+
     include(CheckIncludeFile)
 
     CHECK_INCLUDE_FILE("sys/cdefs.h" FOUND_CDEFS "-m32")
@@ -37,10 +43,8 @@ elseif(UNIX)
         message(FATAL_ERROR "Can't find the 32bit version of sys/cdefs.h - did you install g++-multilib?")
     endif()
 
-
 else()
     message(FATAL_ERROR "Unknown Operating System. Windows or Linux suppoted")
 endif()
-
 
 add_subdirectory(src)

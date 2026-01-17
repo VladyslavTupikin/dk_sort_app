@@ -26,8 +26,6 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
         return;
     }
 
-    int temp = 0;
-
     // Algorhytms same as DkSortBubbleOptimized::DkSortArray
     // but tweaked through x86 assembly
     // should be faster than DkSortBubbleOptimized::DkSortArray
@@ -70,6 +68,7 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
         mov eax,esi
     }
 #elif defined(__linux__)
+    int is_swapped = 0;
     __asm__ __volatile__ (
         "mov esi,%0\n\t"
         "mov edi,(%1)\n\t"
@@ -99,7 +98,7 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
         "cmp ebx,edi\n\t"
         "jl Input\n\t"
     "Return:\n\t"
-        "mov eax,esi\n\t"::"m"(array),"m"(size),"m"(temp):"eax","ebx","ecx","edx","esi","edi","memory"
+        "mov eax,esi\n\t"::"m"(array),"m"(size),"m"(is_swapped):"eax","ebx","ecx","edx","esi","edi","memory"
     );
 #endif
 }

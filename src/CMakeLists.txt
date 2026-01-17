@@ -36,16 +36,28 @@ set_target_properties(${DK_SORT} PROPERTIES
     OUTPUT_NAME "${DK_SORT}"
 )
 
-if( (NOT EXIST ${SET_ARRAY_SIZE}) OR ("${SET_ARRAY_SIZE}" LESS_EQUAL "0") )
+if( (NOT SET_ARRAY_SIZE) OR ("${SET_ARRAY_SIZE}" LESS_EQUAL "0") )
     message(FATAL_ERROR "Array size should be directly specified like -DSET_ARRAY_SIZE=20")
 endif()
 
 if(WIN32)
 
-    if(${ENABLE_PRINT_ARRAY})
-        set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2 /DENABLE_PRINT_ARRAY /DARRAY_SIZE=${SET_ARRAY_SIZE})
-    else()
-        set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /O2 /DARRAY_SIZE=${SET_ARRAY_SIZE})
+    target_compile_options(${DK_SORT} PRIVATE
+    $<$<CONFIG:Release>:/O2>)
+
+    target_compile_options(${DK_SORT} PRIVATE
+    $<$<CONFIG:Debug>:/Od>)
+
+    set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DARRAY_SIZE=${SET_ARRAY_SIZE} /W4 /WX)
+
+    # Disable warning about usage of ebp register with inline __asm
+    # It can lead to potential stack corruptions, but who cares :/
+    message(WARNING "Disabled ebp usage warning ${CMAKE_CXX_COMPILER_ID} C4731 with inline __asm!!!")
+    set(CPP_FLAGS ${CPP_FLAGS} /wd4731)
+
+    if(ENABLE_PRINT_ARRAY)
+        message(STATUS "Printing array enabled.")
+        set(CPP_FLAGS ${CPP_FLAGS} /DENABLE_PRINT_ARRAY )
     endif()
 
 elseif(UNIX)
@@ -56,6 +68,7 @@ elseif(UNIX)
 
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 
+        message(STATUS "Building Release version, optimization enabled: -O3")
         set(CPP_FLAGS ${CPP_FLAGS} "-O3") # Enable maximum optimization
 
         add_custom_command(
@@ -66,13 +79,15 @@ elseif(UNIX)
         )
     elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 
+        message(STATUS "Building Debug version, optimization disabled: -O0, debug info enabled: -g")
         set(CPP_FLAGS ${CPP_FLAGS} "-O0") # Disable optimization
         set(CPP_FLAGS ${CPP_FLAGS} "-g") # Add debug inffo to the binary
     else()
         message(FATAL_ERROR "Unsupported build type.")
     endif()
 
-    if(${ENABLE_PRINT_ARRAY})
+    if(ENABLE_PRINT_ARRAY)
+        message(STATUS "Printing array enabled.")
         set(CPP_FLAGS ${CPP_FLAGS} "-DENABLE_PRINT_ARRAY")
     endif()
 
