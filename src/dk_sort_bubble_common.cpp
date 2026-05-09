@@ -26,11 +26,11 @@ void dk_sort::DkSortBubbleCommon::DkSortArray(int* array, int size) {
     }
 
     for (auto i = 0; i < size; i++) {
-        for(auto j = 0; j < size ; j++) {
-            if(array[j] > array[i]) {
-                auto tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
+        for(auto j = 0; j < size - i - 1 ; j++) {
+            if(array[j] < array[j + 1]) {
+                auto tmp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = tmp;
             }
         }
     }
