@@ -16,17 +16,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef DK_SORT
-#define DK_SORT
+#ifndef DK_SORT_SELECTION_COMMON
+#define DK_SORT_SELECTION_COMMON
 
-#include "dk_sort_bubble_common.hpp"
-#include "dk_sort_bubble_quicker_asm.hpp"
-#include "dk_sort_bubble_quicker.hpp"
-#include "dk_sort_perfomance.hpp"
-#include "dk_sort_bubble_optimized.hpp"
-#include "dk_sort_bubble_optimized_asm.hpp"
-#include "ai_generated_bubble_sort.hpp"
-#include "dk_sort_selection_common.hpp"
+#include "dk_sort_iface.hpp"
+
+namespace dk_sort
+{
+    class DkSortSelectionCommon: public DkSortIface {
+        public:
+            void DkSortArray(int*,int) override;
+    };
+}
 
 #endif
-

@@ -16,17 +16,37 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef DK_SORT
-#define DK_SORT
+#include <map>
+#include <iostream>
 
-#include "dk_sort_bubble_common.hpp"
-#include "dk_sort_bubble_quicker_asm.hpp"
-#include "dk_sort_bubble_quicker.hpp"
-#include "dk_sort_perfomance.hpp"
-#include "dk_sort_bubble_optimized.hpp"
-#include "dk_sort_bubble_optimized_asm.hpp"
-#include "ai_generated_bubble_sort.hpp"
 #include "dk_sort_selection_common.hpp"
 
-#endif
+std::pair<int, int> findMinArray(int* array, int size, int start) {
 
+    int minIdx = start;
+    int minVal = array[start];
+
+    for (int i = start; i < size; i++) {
+        if (minVal > array[i]) {
+            minIdx = i;
+            minVal = array[i];
+        }
+    }
+
+    return {minIdx, minVal};
+}
+
+void dk_sort::DkSortSelectionCommon::DkSortArray(int* array, int size) {
+
+    if(!array || size <= 0) {
+        return;
+    }
+
+    for (int i = 0; i < size; i++) {
+        auto minimal = findMinArray(array, size, i);
+
+        if (i != minimal.first) {
+            std::swap(array[i], array[minimal.first]);
+        }
+    }
+}

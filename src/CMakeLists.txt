@@ -26,6 +26,8 @@ set(DK_SORT_SRC
     dk_sort_perfomance.cpp
     dk_sort_bubble_optimized.cpp
     dk_sort_bubble_optimized_asm.cpp
+    ai_generated_bubble_sort.cpp
+    dk_sort_selection_common.cpp
     )
 
 add_executable(${DK_SORT} ${DK_SORT_SRC})
@@ -48,7 +50,7 @@ if(WIN32)
     target_compile_options(${DK_SORT} PRIVATE
     $<$<CONFIG:Debug>:/Od>)
 
-    set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DARRAY_SIZE=${SET_ARRAY_SIZE} /W4 /WX)
+    set(CPP_FLAGS ${CPP_FLAGS} /EHsc /std:c++20 /DARRAY_SIZE=${SET_ARRAY_SIZE} /D_CRT_SECURE_NO_WARNINGS /W4 /WX)
 
     # Disable warning about usage of ebp register with inline __asm
     # It can lead to potential stack corruptions, but who cares :/

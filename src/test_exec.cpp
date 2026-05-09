@@ -48,14 +48,13 @@ void test_executor(int array_size) {
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = end - start;
 
-    std::cout << "Array with " << array_size << "filled up: " << duration.count() << std::endl;
+    std::cout << "Array with " << array_size << " filled up: " << std::chrono::duration<double>(end - start).count() << " seconds" << std::endl;
 
     dk_sort::DkSortBubbleCommon bubble;
     dk_perfomance::DkSortPerfomance bubble_perfom(main_array, array_size);
 
     std::cout << "Common bubble sort C++ implementation";
     bubble_perfom.DkPerfomanceTest(bubble);
-
 
     dk_sort::DkSortBubbleQuicker bubble_quicker;
     dk_perfomance::DkSortPerfomance bubble_quicker_perfom(main_array, array_size);
@@ -69,7 +68,6 @@ void test_executor(int array_size) {
     std::cout << "Bubble sort quicker ASM implementation";
     bubble_quicker_asm_perfom.DkPerfomanceTest(bubble_quicker_asm);
 
-
     dk_sort::DkSortBubbleOptimized bubble_optimized;
     dk_perfomance::DkSortPerfomance bubble_optimized_perfom(main_array, array_size);
 
@@ -82,6 +80,18 @@ void test_executor(int array_size) {
     std::cout << "Optimized Bubble sort ASM implementation";
     bubble_optimized_perfom_asm.DkPerfomanceTest(bubble_optimized_asm);
 
+    dk_sort::AiGeneratedBubbleSort ai_bubble;
+    dk_perfomance::DkSortPerfomance ai_bubble_perfom(main_array, array_size);
+
+    std::cout << "AI Generated Bubble Sort implementation";
+    ai_bubble_perfom.DkPerfomanceTest(ai_bubble);
+
+
+    dk_sort::DkSortSelectionCommon selection;
+    dk_perfomance::DkSortPerfomance selection_perfom(main_array, array_size);
+
+    std::cout << "Common selection sort C++ implementation";
+    selection_perfom.DkPerfomanceTest(selection);
 
     delete[] main_array;
 }
