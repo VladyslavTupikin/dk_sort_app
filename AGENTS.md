@@ -45,3 +45,42 @@ If the Agent detects a conflict between its current response and the principles 
 1.  Acknowledge the error immediately.
 2.  Identify which principle was violated (e.g., "I prioritized functional correctness over architectural intent").
 3.  Provide the corrected, professionally-sound advice.
+
+## 5. Documentation Integrity Rules
+
+When generating or updating data-driven files (e.g., `launch_results.md`, `benchmarks.csv`), the Agent must adhere to the following protocol to avoid logical errors:
+
+- **The Verification Pass**: After generating a table, the Agent MUST perform a secondary, independent read of the source data (e.g., terminal output) and manually verify each row against the table.
+- **Strict Sorting Audit**: The Agent must verify that the sorting order (e.g., ascending vs. descending) matches the requirement. For performance metrics, the Agent must ensure that the smallest value is at the top (Rank 1).
+- **Columnar Consistency**: Every row must be checked to ensure that the values in the 'Speed vs. Baseline' column are mathematically consistent with the values in the 'Execution Time' column.
+- **No Implementation-Logic Drift**: The Agent must not rely on its memory of previous tool outputs but must instead re-read the raw terminal output to confirm the numbers are current and accurate.
+
+## 6. Testing Integrity
+
+- **Test Coverage Verification**: Before executing a benchmark or a performance test, the Agent MUST verify that all intended test cases are active (e.g., not commented out by `#if 0` or `//`) in the test runner. A partial test run is a failure of the testing protocol.
+
+## 7. Architecture Awareness (CRITICAL)
+
+- **Respect Architecture Constraints**: Before suggesting any build commands or architectural changes, the Agent MUST verify the supported architectures.
+- **Project-Specific Constraint**: This project contains inline assembly that is **NOT** compatible with x64. All build instructions and suggestions **MUST** target the `Win32` (x86) architecture. Never suggest `x64` or `AMD64` configurations for this repository.
+
+## 8. Build & Execution Knowledge (CRITICAL)
+
+To ensure successful builds and execution, the Agent must adhere to the following configuration patterns:
+
+### Build Environment
+
+- **Toolchain**: Requires MSVC (Microsoft Visual C++) via the **Developer Command Prompt for VS**.
+- **Architecture**: Always use `-A Win32` (e.g., `cmake -B build -A Win32`).
+
+### CMake Configuration Flags
+
+- **`SET_ARRAY_SIZE:INT=<N>`**: Defines the number of elements in the test arrays. Use this to scale performance tests (e.g., `20`, `100`, `20000`).
+- **`ENABLE_PRINT_ARRAY:BOOL=<0|1>`**:
+  - Set to `1` for small arrays (e.g., size 20) to debug/verify sorting logic.
+  - Set to `0` for large arrays (e.g., size > 100) to prevent performance degradation and console buffer overflow.
+
+### Execution Path
+
+- After building with `--config Release`, the executable is located at: `build/src/Release/dksort_app.exe`.
+- Always use valid Windows/PowerShell paths when attempting to run the binary.
