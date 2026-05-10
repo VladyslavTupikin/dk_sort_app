@@ -101,5 +101,11 @@ void test_executor(int array_size) {
     std::cout << "Common selection sort C++ implementation";
     selection_perfom.DkPerfomanceTest(selection);
 
+    dk_sort::DkSortInsertionCommon insertion;
+    dk_perfomance::DkSortPerfomance insertion_perfom(main_array, array_size);
+
+    std::cout << "Common insertion sort C++ implementation";
+    insertion_perfom.DkPerfomanceTest(insertion);
+
     delete[] main_array;
 }

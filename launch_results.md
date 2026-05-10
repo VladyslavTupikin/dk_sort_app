@@ -1,11 +1,23 @@
-| Rank       | Implementation                | Execution Time | Speed vs. Baseline |
-| :--------- | :---------------------------- | :------------- | :----------------- |
-| 🏆 **1st** | **Bubble sort quicker ASM**   | **109.776 ms** | **~3.31x Faster**  |
-| 🥈 **2nd** | **Bubble sort quicker C++**   | **111.019 ms** | **~3.27x Faster**  |
-| 🥉 **3rd** | **Common selection sort C++** | **186.519 ms** | **~1.95x Faster**  |
-| 4th        | Optimized Bubble sort ASM     | 362.058 ms     | ~1.00x (Baseline)  |
-| 5th        | Optimized Bubble sort C++     | 365.592 ms     | ~0.99x             |
-| 6th        | Common bubble sort C++        | 363.154 ms     | ~1.00x (Baseline)  |
-| 7th        | AI Generated Bubble Sort      | 368.076 ms     | ~0.98x             |
+# Sorting Performance Benchmarks
 
-_Last updated: Sat May 9 22:25:00 2026_
+This document tracks the performance of various sorting algorithm implementations.
+All benchmarks were performed on the **Win32 (x86)** architecture.
+
+## Benchmark Results
+
+### Dataset Size: $N=20,000$
+
+| Rank | Algorithm Implementation  | Execution Time (ms) | Speed vs. Baseline |
+| :--- | :------------------------ | :------------------ | :----------------- |
+| 1    | Common insertion sort C++ | 32.073              | 11.33x             |
+| 2    | Bubble sort quicker ASM   | 107.866             | 3.37x              |
+| 3    | Bubble sort quicker C++   | 108.251             | 3.36x              |
+| 4    | Common selection sort C++ | 187.343             | 1.94x              |
+| 5    | Common bubble sort C++    | 363.349             | Baseline           |
+| 6    | AI Generated Bubble Sort  | 367.014             | 0.98x              |
+| 7    | Optimized Bubble sort C++ | 371.436             | 0.98x              |
+| 8    | Optimized Bubble sort ASM | 508.268             | 0.71x              |
+
+---
+
+_Note: All values are measured in milliseconds. Baseline is the Common Bubble Sort C++ implementation._

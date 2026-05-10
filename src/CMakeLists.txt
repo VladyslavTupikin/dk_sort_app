@@ -28,6 +28,7 @@ set(DK_SORT_SRC
     dk_sort_bubble_optimized_asm.cpp
     ai_generated_bubble_sort.cpp
     dk_sort_selection_common.cpp
+    dk_sort_insertion_common.cpp
     )
 
 add_executable(${DK_SORT} ${DK_SORT_SRC})

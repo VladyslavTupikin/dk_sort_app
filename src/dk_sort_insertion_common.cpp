@@ -16,18 +16,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef DK_SORT
-#define DK_SORT
-
-#include "dk_sort_bubble_common.hpp"
-#include "dk_sort_bubble_quicker_asm.hpp"
-#include "dk_sort_bubble_quicker.hpp"
-#include "dk_sort_perfomance.hpp"
-#include "dk_sort_bubble_optimized.hpp"
-#include "dk_sort_bubble_optimized_asm.hpp"
-#include "ai_generated_bubble_sort.hpp"
-#include "dk_sort_selection_common.hpp"
 #include "dk_sort_insertion_common.hpp"
 
-#endif
 
+void dk_sort::DkSortInsertionCommon::DkSortArray(int* array, int size) {
+
+    if(!array || size <= 0) {
+        return;
+    }
+
+    for (auto i = 1; i < size; i++) {
+        auto key = array[i];
+        auto j = i - 1;
+
+        while(j >= 0 && key < array[j]) {
+            array[j + 1] =  array[j];
+            j--;
+        }
+
+        array[j + 1] = key;
+    }
+}
