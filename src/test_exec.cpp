@@ -46,9 +46,17 @@ void test_executor(int array_size) {
         main_array[it] = dist(gen);
     }
     auto end = std::chrono::high_resolution_clock::now();
-    auto duration = end - start;
+    std::chrono::duration<double, std::milli> duration = end - start;
 
-    std::cout << "Array with " << array_size << " filled up: " << std::chrono::duration<double>(end - start).count() << " seconds" << std::endl;
+    auto fill_time = duration.count();
+    const int second_msec = 1000;
+
+    if(fill_time > second_msec) {
+        std::cout << "Array with " << array_size << " elements filled up: " << fill_time / second_msec << " seconds" << std::endl << std::endl;
+    }
+    else {
+        std::cout << "Array with " << array_size << " elements filled up: " << fill_time << " milliseconds" << std::endl << std::endl;
+    }
 
     dk_sort::DkSortBubbleCommon bubble;
     dk_perfomance::DkSortPerfomance bubble_perfom(main_array, array_size);

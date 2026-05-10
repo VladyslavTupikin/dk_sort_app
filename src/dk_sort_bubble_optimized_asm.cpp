@@ -70,6 +70,7 @@ void dk_sort::DkSortBubbleOptimizedAsm::DkSortArray(int* array, int size) {
 #elif defined(__linux__)
     int is_swapped = 0;
     __asm__ __volatile__ (
+        ".align 32;"
         "mov esi,%0\n\t"
         "mov edi,(%1)\n\t"
         "dec edi\n\t"

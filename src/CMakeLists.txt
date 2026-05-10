@@ -66,12 +66,12 @@ elseif(UNIX)
 
     set(CPP_FLAGS ${CPP_FLAGS} "-Wall" "-Werror" "-Wextra" "--pedantic") # Build with strict flags
     set(CPP_FLAGS ${CPP_FLAGS} "-std=c++20" "-masm=intel" "-DARRAY_SIZE=${SET_ARRAY_SIZE}")
-    set(CPP_FLAGS ${CPP_FLAGS} "-D_FORTIFY_SOURCE=3") # Enable security check for memory vulnerabilities
 
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 
         message(STATUS "Building Release version, optimization enabled: -O3")
         set(CPP_FLAGS ${CPP_FLAGS} "-O3") # Enable maximum optimization
+        set(CPP_FLAGS ${CPP_FLAGS} "-D_FORTIFY_SOURCE=3") # Enable security check for memory vulnerabilities
 
         add_custom_command(
             TARGET ${DK_SORT} POST_BUILD

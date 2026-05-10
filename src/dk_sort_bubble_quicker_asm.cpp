@@ -61,6 +61,7 @@ void dk_sort::DkSortBubbleQuickerAsm::DkSortArray(int* array, int size) {
     }
 #elif defined(__linux__)
      __asm__ __volatile__  (
+        ".align 32;"
         "mov esi,%0\n\t"
         "mov edi,(%1)\n\t"
         "push ebp\n\t"
