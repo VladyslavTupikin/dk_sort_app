@@ -1,4 +1,4 @@
-# Test application for different sort algorhythms.
+# Test application for different sort algorithms.
 # Copyright (C) 2026  Vladyslav Tupikin
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project(DK_SORT_APP
         LANGUAGES C CXX
         VERSION 0.1
-        DESCRIPTION "Test application for different sort algorhythms."
+        DESCRIPTION "Test application for different sort algorithms."
         HOMEPAGE_URL "https://github.com/VladyslavTupikin/dk_sort_app")
 
 set(CMAKE_CXX_STANDARD 20)

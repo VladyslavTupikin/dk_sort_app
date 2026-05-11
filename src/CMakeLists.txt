@@ -1,4 +1,4 @@
-# Test application for different sort algorhythms.
+# Test application for different sort algorithms.
 # Copyright (C) 2026  Vladyslav Tupikin
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ set(DK_SORT_SRC
     ai_generated_bubble_sort.cpp
     dk_sort_selection_common.cpp
     dk_sort_insertion_common.cpp
+    dk_sort_merge_common.cpp
     )
 
 add_executable(${DK_SORT} ${DK_SORT_SRC})

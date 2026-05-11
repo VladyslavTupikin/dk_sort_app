@@ -1,5 +1,5 @@
 /*
-Test application for different sort algorhythms.
+Test application for different sort algorithms.
 Copyright (C) 2026  Vladyslav Tupikin
 
 This program is free software: you can redistribute it and/or modify

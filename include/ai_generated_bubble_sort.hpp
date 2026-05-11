@@ -1,5 +1,5 @@
 /*
-Test application for different sort algorhythms.
+Test application for different sort algorithms.
 Copyright (C) 2026  Vladyslav Tupikin
 Co-authored by AI Assistant
 

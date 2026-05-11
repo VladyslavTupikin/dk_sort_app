@@ -16,14 +16,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef DK_SORT_BUBBLE_QUICKER_ASM
-#define DK_SORT_BUBBLE_QUICKER_ASM
+#ifndef DK_SORT_MERGE_COMMON
+#define DK_SORT_MERGE_COMMON
 
 #include "dk_sort_iface.hpp"
 
 namespace dk_sort
 {
-    class DkSortBubbleQuickerAsm:DkSortIface {
+    class DkSortMergeCommon:DkSortIface {
         public:
             void DkSortArray(int*,int) override;
     };

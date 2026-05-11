@@ -16,17 +16,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef DK_SORT_BUBBLE_QUICKER_ASM
-#define DK_SORT_BUBBLE_QUICKER_ASM
+#include "dk_sort_merge_common.hpp"
 
-#include "dk_sort_iface.hpp"
 
-namespace dk_sort
-{
-    class DkSortBubbleQuickerAsm:DkSortIface {
-        public:
-            void DkSortArray(int*,int) override;
-    };
+void dk_sort::DkSortMergeCommon::DkSortArray(int* array, int size) {
+
+    if(!array || size <= 0) {
+        return;
+    }
+
+    for (auto i = 1; i < size; i++) {
+        auto key = array[i];
+        auto j = i - 1;
+
+        while(j >= 0 && key < array[j]) {
+            array[j + 1] =  array[j];
+            j--;
+        }
+
+        array[j + 1] = key;
+    }
 }
-
-#endif
