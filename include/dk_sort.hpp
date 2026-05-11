@@ -28,6 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include "ai_generated_bubble_sort.hpp"
 #include "dk_sort_selection_common.hpp"
 #include "dk_sort_insertion_common.hpp"
+#include "dk_sort_merge_common.hpp"
 
 #endif
 

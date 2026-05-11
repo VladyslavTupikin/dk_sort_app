@@ -18,6 +18,58 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "dk_sort_merge_common.hpp"
 
+#include <vector>
+#include <iostream>
+
+void static MergeSortImpl(int *array, int size) {
+
+    if (size <= 1) {
+        return;
+    }
+
+    auto splitSizeA = size / 2;
+    auto splitSizeB = size - splitSizeA;
+    auto *arrayA = new int[splitSizeA];
+    auto *arrayB = new int[splitSizeB];
+
+    for (int i = 0; i < splitSizeA; i++) {
+        arrayA[i] = array[i];
+    }
+
+    for (int i = 0; i < splitSizeB; i++) {
+        arrayB[i] = array[splitSizeA + i];
+    }
+
+    MergeSortImpl(arrayA, splitSizeA);
+    MergeSortImpl(arrayB, splitSizeB);
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    while (i < splitSizeA && j < splitSizeB) {
+        if (arrayA[i] <= arrayB[j]) {
+            array[k] = arrayA[i];
+            i++;
+        } else {
+            array[k] = arrayB[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < splitSizeA) {
+        array[k++] = arrayA[i++];
+    }
+
+    while (j < splitSizeB) {
+        array[k++] = arrayB[j++];
+    }
+
+    delete[] arrayA;
+    delete[] arrayB;
+}
+
 
 void dk_sort::DkSortMergeCommon::DkSortArray(int* array, int size) {
 
@@ -25,15 +77,5 @@ void dk_sort::DkSortMergeCommon::DkSortArray(int* array, int size) {
         return;
     }
 
-    for (auto i = 1; i < size; i++) {
-        auto key = array[i];
-        auto j = i - 1;
-
-        while(j >= 0 && key < array[j]) {
-            array[j + 1] =  array[j];
-            j--;
-        }
-
-        array[j + 1] = key;
-    }
+    MergeSortImpl(array, size);
 }

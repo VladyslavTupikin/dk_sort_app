@@ -107,5 +107,11 @@ void test_executor(int array_size) {
     std::cout << "Common insertion sort C++ implementation";
     insertion_perfom.DkPerfomanceTest(insertion);
 
+    dk_sort::DkSortMergeCommon merge;
+    dk_perfomance::DkSortPerfomance merge_perfom(main_array, array_size);
+
+    std::cout << "Common merge sort C++ implementation";
+    merge_perfom.DkPerfomanceTest(merge);
+
     delete[] main_array;
 }
