@@ -54,6 +54,8 @@ When generating or updating data-driven files (e.g., `launch_results.md`, `bench
 - **Strict Sorting Audit**: The Agent must verify that the sorting order (e.g., ascending vs. descending) matches the requirement. For performance metrics, the Agent must ensure that the smallest value is at the top (Rank 1).
 - **Columnar Consistency**: Every row must be checked to ensure that the values in the 'Speed vs. Baseline' column are mathematically consistent with the values in the 'Execution Time' column.
 - **No Implementation-Logic Drift**: The Agent must not rely on its memory of previous tool outputs but must instead re-read the raw terminal output to confirm the numbers are current and accurate.
+- **Preserve File Structure**: When updating data-driven files (e.g., `launch_results.md`), the Agent MUST preserve all existing headers, introductory text, and metadata (e.g., architecture notes, copyrights). Do not replace the entire file content with just the new data table; only replace or append the specific data sections being updated.
+-
 
 ## 6. Testing Integrity
 
@@ -84,3 +86,7 @@ To ensure successful builds and execution, the Agent must adhere to the followin
 
 - After building with `--config Release`, the executable is located at: `build/src/Release/dksort_app.exe`.
 - Always use valid Windows/PowerShell paths when attempting to run the binary.
+
+## 9. Benchmark Integrity
+
+- **Strict Array Size for Results**: When performing a build and execution specifically to update `launch_results.md`, the `SET_ARRAY_SIZE` CMake flag **MUST** be set to `20000`. This ensures consistency across all benchmark entries in the documentation.
